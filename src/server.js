@@ -3,9 +3,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
-const path = require("path"); // ✅ Needed to serve frontend
-
-
+const path = require("path");
 
 dotenv.config();
 const app = express();
@@ -18,6 +16,7 @@ if (process.env.NODE_ENV !== "production") {
   app.use(morgan("dev"));
 }
 
+// Disable cache
 app.use((req, res, next) => {
   res.set("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
   res.set("Pragma", "no-cache");
@@ -38,7 +37,6 @@ const admissionRoutes = require("./routes/admissionRoutes");
 const searchRoutes = require("./routes/searchRoutes");
 const studyNewsRoutes = require("./routes/studyNewsRoutes");
 
-
 app.use("/api/auth", authRoutes);
 app.use("/api/email", emailRoutes);
 app.use("/api/notifications", notificationRoutes);
@@ -52,8 +50,7 @@ app.use("/api/study-news", studyNewsRoutes);
 
 // ✅ Serve frontend in production
 if (process.env.NODE_ENV === "production") {
-  const frontendPath = path.join(__dirname, "../../sarkari-jobs-frontend/dist");
-
+  const frontendPath = path.join(__dirname, "../dist");
   app.use(express.static(frontendPath));
 
   app.get("*", (req, res) => {
@@ -64,7 +61,6 @@ if (process.env.NODE_ENV === "production") {
     res.send("✅ API is running...");
   });
 }
-
 
 // DB Connection
 const connectDB = async (attempts = 5) => {
