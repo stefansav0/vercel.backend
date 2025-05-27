@@ -52,21 +52,19 @@ app.use("/api/study-news", studyNewsRoutes);
 
 // ✅ Serve frontend in production
 if (process.env.NODE_ENV === "production") {
-  const frontendPath = path.join(__dirname, "client", "dist"); // For Vite
-  // const frontendPath = path.join(__dirname, "client", "build"); // For CRA
+  const frontendPath = path.join(__dirname, "../../sarkari-jobs-frontend/dist");
 
   app.use(express.static(frontendPath));
 
-  // All non-API routes → React handles it
   app.get("*", (req, res) => {
     res.sendFile(path.join(frontendPath, "index.html"));
   });
 } else {
-  // Default test route in dev
   app.get("/", (req, res) => {
     res.send("✅ API is running...");
   });
 }
+
 
 // DB Connection
 const connectDB = async (attempts = 5) => {
