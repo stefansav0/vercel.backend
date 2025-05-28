@@ -36,7 +36,7 @@ const answerKeyRoutes = require("./routes/answerKeyRoutes");
 const admissionRoutes = require("./routes/admissionRoutes");
 const searchRoutes = require("./routes/searchRoutes");
 const studyNewsRoutes = require("./routes/studyNewsRoutes");
-const sitemapRoute = require('./src/routes/sitemap');
+const sitemapRoute = require("./routes/sitemap");
 
 app.use("/api/auth", authRoutes);
 app.use("/api/email", emailRoutes);
@@ -48,7 +48,7 @@ app.use("/api/answer-keys", answerKeyRoutes);
 app.use("/api/admissions", admissionRoutes);
 app.use("/api/search", searchRoutes);
 app.use("/api/study-news", studyNewsRoutes);
-app.use('/sitemap.xml', sitemapRoute);
+app.use("/api/sitemap.xml", sitemapRoute);
 
 // ✅ Serve frontend in production
 if (process.env.NODE_ENV === "production") {
