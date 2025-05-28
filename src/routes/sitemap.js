@@ -3,15 +3,13 @@ const router = express.Router();
 const { SitemapStream, streamToPromise } = require('sitemap');
 const { Readable } = require('stream');
 
-const Job = require('../models/job');      // Adjust path as per your structure
-const Blog = require('../models/blog');    // Adjust path as per your structure
+const Job = require('../models/job');  // ✅ Confirm this path is correct
 
 const hostname = 'https://finderight.com';
 
 router.get('/', async (req, res) => {
   try {
     const jobs = await Job.find().select('_id');
-    const blogs = await Blog.find().select('_id');
 
     const links = [
       { url: '/', changefreq: 'daily', priority: 1.0 },
@@ -25,17 +23,11 @@ router.get('/', async (req, res) => {
       { url: '/results', changefreq: 'daily', priority: 0.9 },
       { url: '/notifications', changefreq: 'daily', priority: 0.9 },
       { url: '/search', changefreq: 'daily', priority: 0.8 },
-        { url: '/answer-key', changefreq: 'daily', priority: 0.9 },
-        { url: '/admission', changefreq: 'daily', priority: 0.9 },
-        { url: '/study-news', changefreq: 'weekly', priority: 0.7 },
-        
-      // dynamic blog posts
-      ...blogs.map(blog => ({
-        url: `/blog/${blog._id}`,
-        changefreq: 'weekly',
-        priority: 0.7
-      })),
-      // dynamic job posts
+      { url: '/answer-key', changefreq: 'daily', priority: 0.9 },
+      { url: '/admission', changefreq: 'daily', priority: 0.9 },
+      { url: '/study-news', changefreq: 'weekly', priority: 0.7 },
+
+      // Dynamic job posts
       ...jobs.map(job => ({
         url: `/jobs/${job._id}`,
         changefreq: 'daily',
@@ -49,7 +41,7 @@ router.get('/', async (req, res) => {
     res.header('Content-Type', 'application/xml');
     res.send(xml.toString());
   } catch (e) {
-    console.error(e);
+    console.error('Sitemap generation error:', e);
     res.status(500).end();
   }
 });
