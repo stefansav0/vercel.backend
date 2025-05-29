@@ -48,7 +48,7 @@ app.use("/api/answer-keys", answerKeyRoutes);
 app.use("/api/admissions", admissionRoutes);
 app.use("/api/search", searchRoutes);
 app.use("/api/study-news", studyNewsRoutes);
-app.use("/api/sitemap.xml", sitemapRoute);
+app.use("/sitemap.xml", sitemapRoute);
 
 // ✅ Serve frontend in production
 if (process.env.NODE_ENV === "production") {
