@@ -3,7 +3,7 @@ const router = express.Router();
 const { SitemapStream, streamToPromise } = require('sitemap');
 const { Readable } = require('stream');
 
-const Job = require('../models/job');  // ✅ Confirm this path is correct
+const Job = require('../models/Job');  // ✅ Confirm this path is correct
 
 const hostname = 'https://finderight.com';
 
