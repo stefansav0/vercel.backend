@@ -283,4 +283,21 @@ router.post(
   })
 );
 
+// ✅ 🆕 Update Profile Route
+router.put("/update-profile", authMiddleware, asyncHandler(async (req, res) => {
+  const { name, email } = req.body;
+  const updated = await User.findByIdAndUpdate(
+    req.user.id,
+    { name, email },
+    { new: true }
+  ).select("-password");
+  res.json({ success: true, message: "Profile updated", user: updated });
+}));
+
+// ✅ 🆕 Delete Account Route
+router.delete("/delete-account", authMiddleware, asyncHandler(async (req, res) => {
+  await User.findByIdAndDelete(req.user.id);
+  res.json({ success: true, message: "Account deleted successfully" });
+}));
+
 module.exports = router;
