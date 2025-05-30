@@ -10,7 +10,13 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+
+app.use(cors({
+  origin: "https://www.finderight.com",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true // Optional: use if you're sending cookies
+}));
+
 
 if (process.env.NODE_ENV !== "production") {
   app.use(morgan("dev"));
