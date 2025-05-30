@@ -4,8 +4,8 @@ const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const asyncHandler = require("express-async-handler");
 const User = require("../models/User");
+const authMiddleware = require("../middleware/authMiddleware");
 require("dotenv").config();
-const authMiddleware = require("../middlewares/authMiddleware");
 
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET;
