@@ -5,8 +5,9 @@ const asyncHandler = require("express-async-handler");
 const router = express.Router();
 require("dotenv").config();
 
+// POST /api/contact
 router.post(
-  "/contact",
+  "/",
   asyncHandler(async (req, res) => {
     const { name, email, message } = req.body;
 
@@ -25,7 +26,7 @@ router.post(
 
     const mailOptions = {
       from: email,
-      to: process.env.EMAIL_USER, // Your email
+      to: process.env.EMAIL_USER, // Your receiving email
       subject: `New Contact Message from ${name}`,
       text: message,
     };
