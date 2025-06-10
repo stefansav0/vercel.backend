@@ -29,6 +29,7 @@ router.post(
       to: process.env.EMAIL_USER, // Your receiving email
       subject: `New Contact Message from ${name}`,
       text: message,
+      replyTo: email, // ✅ Lets you reply to the user directly
     };
 
     await transporter.sendMail(mailOptions);
