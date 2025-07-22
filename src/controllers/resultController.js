@@ -37,20 +37,7 @@ exports.createResult = async (req, res) => {
 
     await result.save();
 
-    await sendToAllUsers({
-      subject: `📢 New Result Declared - ${title}`,
-      html: `
-        <p>Hi {{name}},</p>
-        <p>The result for <strong>${title}</strong> has been published.</p>
-        <ul>
-          <li><strong>Exam Date:</strong> ${examDate ? new Date(examDate).toLocaleDateString() : "N/A"}</li>
-          <li><strong>Result Date:</strong> ${resultDate ? new Date(resultDate).toLocaleDateString() : "N/A"}</li>
-          <li><strong>Conducted By:</strong> ${conductedBy || "N/A"}</li>
-        </ul>
-        <p><a href="https://your-frontend.com/result/${slug}">👉 View Full Result Details</a></p>
-        <p>Best regards,<br />Sarkari Portal</p>
-      `
-    });
+   
 
     res.status(201).json({ message: "✅ Result created successfully", result });
 
